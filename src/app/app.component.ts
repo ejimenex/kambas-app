@@ -32,6 +32,9 @@ export class AppComponent {
     private alertService: AlertService
   ) {}
   ngOnInit() {
+    this.cardDone=[];
+    this.cardInProgress=[]
+    this.cardNew=[]
     this.refreshAllPages();
     this.getAddedCard();
   }
