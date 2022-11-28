@@ -37,16 +37,15 @@ export class AppComponent {
     this.cardDone=[];
     this.cardInProgress=[]
     this.cardNew=[]
-    //this.refreshAllPages();
     this.getAddedCard();
   }
 
   getAddedCard() {
     this.loading=true
     setTimeout(()=>{                           
-      this.refreshAllPages()
+     this.refreshAllPages()
       this.loading=false
-  }, 3000); 
+  }, 5000); 
 
   }
 
@@ -81,7 +80,7 @@ export class AppComponent {
       );
     }
 
-    this.getAddedCard();
+    this.refreshAllPages();
     this.alertService.success('Card removed sucessfully!');
   }
   addOrEdit(item: card, isSave: boolean, isToDo: boolean): void {
@@ -101,13 +100,13 @@ export class AppComponent {
     }
     modal.componentInstance.isToDo = isToDo;
     modal.componentInstance.notifyParent.subscribe(() => {
-      this.refreshAllPages()
+      this.getAddedCard()
     });
   }
   changeToWorking(item: card) {
     this.delete(item, true);
     this.cardService.addCard(item, localStorageName.inProgress);
-    this.getAddedCard();
+    this.refreshAllPages();
   }
   changeToDone(item: card) {
     this.delete(item, false);

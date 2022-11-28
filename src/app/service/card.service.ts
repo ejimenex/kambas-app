@@ -29,7 +29,7 @@ export class CardService {
     localStorage.setItem(localStorageName, JSON.stringify(currentData));
   }
   getAddCard(localStorageName:string) {
-    let currentData = JSON.parse(localStorage.getItem(localStorageName) || '{}');
+    let currentData = JSON.parse(localStorage.getItem(localStorageName) || '[]');
     return currentData;
   }
   removeCard(data: card[],localStorageName:string) {
