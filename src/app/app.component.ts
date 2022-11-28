@@ -93,7 +93,7 @@ export class AppComponent {
         : this.cardInProgress.indexOf(item);
     }
     modal.componentInstance.isToDo = isToDo;
-    modal.componentInstance.notifyParent.subscribe((data) => {
+    modal.componentInstance.notifyParent.subscribe(() => {
       this.refreshAllPages()
     });
   }

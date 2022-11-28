@@ -16,7 +16,6 @@ import { CardService } from './service/card.service';
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
-    DndModule,
     AppRoutingModule,NgbModule
 
   ],
