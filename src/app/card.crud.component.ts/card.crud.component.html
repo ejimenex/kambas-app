@@ -1,0 +1,70 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <h4 class="title">{{title}}</h4>
+    <button
+      data-dismiss="modal"
+      (click)="close()"
+      class="btn btn-danger"
+      aria-hidden="true"
+    >Close</button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+        <div  class="col-md-12 alert alert-info">
+          <label>You have to fill all fields</label>
+         
+        </div>
+      </div>
+    <div class="row">
+      <div class="col-md-12">
+        <label>Title</label>
+        <input class="form-control" [(ngModel)]="card.title" />
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+          <label>Tags</label>
+          <input class="form-control" [(ngModel)]="card.tag" />
+        </div>
+      </div>
+    <div class="row">
+      <div class="col-md-12">
+        <label>Description</label>
+        <textarea class="form-control" [(ngModel)]="card.description">
+        </textarea>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+          <label>Asigned</label>
+          <input class="form-control" [(ngModel)]="card.asignedTo" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <label>Due Date</label>
+          <input type="date" class="form-control" [(ngModel)]="card.dueDate" />
+        </div>
+      </div>
+  </div>
+
+  <div class="modal-footer">
+    <div>
+      <button (click)='addOrEdit()' data-dismiss="modal" class="btn btn-primary hidden-xs">
+        <em class="fa fa-save"></em> Save
+      </button>
+    </div>
+    <div>
+        <button (click)='removeToDo()' data-dismiss="modal" class="btn btn-danger hidden-xs">
+          <em class="fa fa-save"></em> Delete
+        </button>
+      </div>
+    <button
+      data-dismiss="modal"
+      (click)="close()"
+      class="btn btn-secondary hidden-xs"
+    >
+      <em class="fa fa-remove"></em> Cancel
+    </button>
+  </div>
+</div>
