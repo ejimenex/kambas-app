@@ -21,23 +21,37 @@
         <input class="form-control" [(ngModel)]="card.title" />
       </div>
     </div>
-    <div class="row">
+
+      <div class="row">
         <div class="col-md-12">
-          <label>Tags</label>
-          <input class="form-control" [(ngModel)]="card.tag" />
+          <label>Description</label>
+          <textarea class="form-control" [(ngModel)]="card.description">
+          </textarea>
         </div>
       </div>
-    <div class="row">
-      <div class="col-md-12">
-        <label>Description</label>
-        <textarea class="form-control" [(ngModel)]="card.description">
-        </textarea>
-      </div>
-    </div>
-    <div class="row">
+      <div class="row">
         <div class="col-md-12">
-          <label>Asigned</label>
+          <label>Tags</label>
+          <select class="form-control" [(ngModel)]="card.tag" multiple>
+            <option value="SEO">SEO</option>
+            <option value="BlogPost">Blog Post</option>
+            <option value="Form">Form</option>
+          </select>
+        </div>
+      </div>
+
+    <div class="row">
+        <div class="col-md-6">
+          <label>Select Assigneed</label>
+          
+          <select class="form-control" [(ngModel)]="card.asignedTo">
+            <option *ngFor="let person of persons" [ngValue]="person.value">{{person.value}}</option>
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label>Or type Assigneed</label>
           <input class="form-control" [(ngModel)]="card.asignedTo" />
+          
         </div>
       </div>
       <div class="row">
@@ -55,7 +69,7 @@
       </button>
     </div>
     <div>
-        <button (click)='removeToDo()' data-dismiss="modal" class="btn btn-danger hidden-xs">
+        <button *ngIf="editMode" (click)='removeToDo()' data-dismiss="modal" class="btn btn-danger hidden-xs">
           <em class="fa fa-save"></em> Delete
         </button>
       </div>

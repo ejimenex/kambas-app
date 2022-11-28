@@ -36,9 +36,11 @@
 <hr>
 <div class="row">
   <div class="col-md-1"><label>Filter: </label></div>
-  <div class="col-md-3"><select class="form-control" [(ngModel)]="filter"><option *ngFor="let item of filters" [ngValue]="item.value">{{item.label}}</option></select></div>
+  <div class="col-md-2"><select class="form-control" [(ngModel)]="filter"><option *ngFor="let item of filters" [ngValue]="item.value">{{item.label}}</option></select></div>
   <div class="col-md-1"><label>Value:</label></div>
-  <div class="col-md-4"><input placeholder="Value of filter" (blur)="filterToDo()" class="form-control" [(ngModel)]="filterValue" /></div>
+  <div class="col-md-4"><input placeholder="Value of filter" class="form-control" [(ngModel)]="filterValue" /></div>
+  <div class="col-md-2"><button (click)="filterCards()" class="btn btn-primary">Buscar</button></div>
+  <div class="col-md-2"><button (click)="refreshAllPages()" class="btn btn-primary">Refrescar</button></div>
 </div>
 <br>
 <div class="row">
@@ -50,8 +52,8 @@
 
       </div>
       <div *ngFor="let item of cardNew"  class="card-body">
-        <div>
-          <div style="border-radius: 5px; background-color:#198754	; padding: 5px;" class=" col-md-8 text-light">
+        <div style="border-radius: 5px; border-style:groove ; padding: 5px;">
+          <div class="col-md-8 ">
             <button (click)="addOrEdit(item,false,true)" class="btn btn-info">Edit</button>
             <button (click)="removeToDo(item,true)" class="btn btn-danger">Remove</button>
             <button (click)="changeToWorking(item)" class="btn btn-primary">Change State</button>
@@ -75,21 +77,22 @@
 
 
       </div>
-      <div class="card-body"><div *ngFor="let item of cardInProgress"  class="card-body">
+      <div class="">
+        <div *ngFor="let item of cardInProgress"  class="card-body">
         
-        <div style="border-radius: 5px; background-color:#FFC107	; padding: 5px;" class=" col-md-8 text-dark">
-          <button (click)="addOrEdit(item,false,false)" class="btn btn-info">Edit</button>
+        <div style="border-radius: 5px; border-style:groove ; padding: 5px;" class=" col-md-12">
+    <button (click)="addOrEdit(item,false,false)" class="btn btn-info">Edit</button>
           <button (click)="removeToDo(item,false)" class="btn btn-danger">Remove</button>
           <button (click)="changeToDone(item)" class="btn btn-primary">Change to Done</button>
-          <p><strong>Title: {{item.title}}</strong></p>
-          <label><strong>Description:</strong>{{item.description}}</label>
-          <br>
-          <label><strong>Tags:</strong>{{item.tag}}</label>
-          <br>
-          <label><strong>Assigneed:</strong>{{item.asignedTo}}</label>
-          <br>
-          <label><strong>Due Date:</strong>{{item.dueDate | date}}</label>
-        
+          <table class="table">
+            
+            <tr><td><strong>Title: </strong></td><td>{{item.title}}</td></tr>
+            <tr><td><strong>Description:</strong></td><td>{{item.description}}</td></tr>
+            <tr><td><strong>Tags:</strong></td><td>{{item.tag}}</td></tr>
+            <tr><td><strong>Assigneed:</strong></td><td>{{item.asignedTo}}</td></tr>
+            <tr><td><strong><strong>Due Date:</strong></strong></td><td>{{item.dueDate | date}}</td></tr></table>
+          
+         
    
         </div>
     </div>
@@ -105,7 +108,7 @@
       </div>
       <div class="card-body"><div *ngFor="let item of cardDone"  class="card-body">
         
-        <div style="border-radius: 5px; background-color:#0DCAF0	; padding: 5px;" class=" col-md-8 text-dark">
+        <div style="border-radius: 5px; background-color:#f1f5f2	; padding: 5px;" class=" col-md-12 text-dark">
       
           <p><strong>Title: {{item.title}}</strong></p>
           <label><strong>Description:</strong>{{item.description}}</label>
@@ -126,12 +129,15 @@
 </div>
 
 </div>
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * The content above * * * * * * * * * * * -->
-<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
-<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * End of Placeholder * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<div class="my-container">
+  <ng-template #customLoadingTemplate>
+  
+  </ng-template>
 
+  <ngx-loading
+    [show]="loading"
+    [config]="{ backdropBorderRadius: '3px' }"
+    [template]="customLoadingTemplate"
+  ></ngx-loading>
+</div>
 <router-outlet></router-outlet>

@@ -43,6 +43,7 @@
         vertical-align: middle;
         line-height: 1;
     }
+    #div-main{border-radius: 5px; border-style:groove ; padding: 5px;}
 }
 
 [pDraggable] {
@@ -62,5 +63,6 @@
             margin: 0 0 1rem 0;
             width: 100px;
         }
-    }
+    } 
+   
 }

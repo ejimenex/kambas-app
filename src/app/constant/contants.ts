@@ -6,6 +6,8 @@ export const localStorageName=
     inProgress:'cardInProgres',
     done:'cardDone',
 }
-
+export const users=[
+    {value:'Person One'},{value:'Person Two'},{value:'Person Three'},{value:'Person Four'}
+]
 
 

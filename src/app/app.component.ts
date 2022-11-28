@@ -6,6 +6,7 @@ import { CardService } from './service/card.service';
 import { AlertService } from './service/alert.service';
 import { localStorageName } from './constant/contants';
 import { interval, Subscription } from 'rxjs';
+import { ThisReceiver } from '@angular/compiler';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -21,10 +22,11 @@ export class AppComponent {
   filter: any = {};
   filterValue = '';
   filters = [
-    { label: 'By Title', value: '' },
-    { label: 'By Assineed', value: '' },
-    { label: 'By Tag', value: '' },
+    { label: 'By Title', value: 'T' },
+    { label: 'By Assineed', value: 'A' },
+    { label: 'By Tag', value: 'TAG' },
   ];
+  public loading = false;
   card: card = new card();
   constructor(
     private _modalService: NgbModal,
@@ -35,17 +37,19 @@ export class AppComponent {
     this.cardDone=[];
     this.cardInProgress=[]
     this.cardNew=[]
-    this.refreshAllPages();
+    //this.refreshAllPages();
     this.getAddedCard();
   }
 
   getAddedCard() {
-    const source = interval(5000);
-    this.subscription = source.subscribe((val) => this.refreshAllPages());
+    this.loading=true
+    setTimeout(()=>{                           
+      this.refreshAllPages()
+      this.loading=false
+  }, 3000); 
+
   }
-  ngOnDestroy() {
-    // this.subscription.unsubscribe();
-  }
+
   refreshAllPages() {
     this.cardNew = this.cardService.getAddCard(localStorageName.toDo);
     this.cardInProgress = this.cardService.getAddCard(
@@ -111,12 +115,30 @@ export class AppComponent {
     this.cardDone = this.cardService.getAddCard(localStorageName.done);
     this.alertService.success('Card closed sucessfully');
   }
-  filterToDo() {
-    return this.cardNew.filter(
-      (data) =>
-        JSON.stringify(data)
+  filterCards(){
+    if(this.filter=='T')this.filterByTitle('title')
+    if(this.filter=='A')this.filterByTitle('asignedTo')
+    if(this.filter=='TAG')this.filterByTitle('tag')
+  }
+  filterByTitle(typeParameter:string) {
+    this.refreshAllPages()
+    this.cardNew= this.cardNew.filter(
+      (data:any) =>
+        this.filterValue
           .toLowerCase()
-          .indexOf(this.filterValue.toLowerCase()) !== -1
+          .indexOf(data[typeParameter].toLowerCase()) !== -1
+    );
+    this.cardInProgress= this.cardInProgress.filter(
+      (data:any) =>
+        this.filterValue
+          .toLowerCase()
+          .indexOf(data[typeParameter].toLowerCase()) !== -1
+    );
+    this.cardDone= this.cardDone.filter(
+      (data:any) =>
+        this.filterValue
+          .toLowerCase()
+          .indexOf(data[typeParameter].toLowerCase()) !== -1
     );
   }
 }
